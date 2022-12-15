@@ -1,5 +1,5 @@
 <div class="flex justify-between">
-  <div class="farm__list py-10 px-8  w-[41rem]">
+  <div class="farm__list py-10 px-8  min-w-[41rem]">
     <p class="text-darkGreen text-2xl font-bold mb-9">Farmers</p>
     <label class="input-group">
       <span class="bg-transparent border border-r-0 bg-paleGreen rounded__edge--left h-[5rem]">
@@ -9,14 +9,13 @@
              class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen"/>
     </label>
     <div class="h-[85vh] overflow-hidden overflow-y-scroll">
-      <div class="flex__btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200" *ngFor="let _ of farms">
+      <div class="my__flex--btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200" *ngFor="let _ of farms" (click)="toggleSide()">
         <img src="./assets/img/farm-icon.svg" alt="Farms svg">
 
         <div class="pl-7 mr-auto text-2xl">
           <p class="font-bold">Mzee Waziri</p>
           <p class="font-extralight">Nairobi, Kenya</p>
         </div>
-
 
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="cursor-pointer">
@@ -34,5 +33,41 @@
 
   <div class="maps h-screen w-full rounded-2xl">
     <div id="map" class="rounded-2xl"></div>
+  </div>
+
+  <div class="farm__list py-10 px-8  w-[0] hidden transition-all duration-1000" [ngClass]="{'show ': sideOpen}">
+    <div class="bg-paleGreen my__flex--ctr flex-col py-11 rounded-2xl">
+      <div class="bg-lightGreen w-56 h-56 rounded-full my__flex--ctr text-darkGreen font-extraboldbold text-[5.6rem] leading-none"><p>MW</p></div>
+      <p class="text-darkGreen text-3xl font-bold mt-9">Mzee Waziri</p>
+    </div>
+
+    <h2 class="text-darkGreen text-2xl font-bold mt-6">Farm Name</h2>
+    <p class="text-darkGreen text-2xl ">Kilgoris</p>
+
+    <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
+    <div class="my__flex--btwn flex-wrap mt-5">
+      <div class="my__flex--ctr flex-col w-32">
+        <img src="./assets/img/banana.svg" alt="Fruit img">
+        <p class="text-darkGreen text-2xl mt-3">Banana</p>
+      </div>
+      <div  class="my__flex--ctr flex-col w-32">
+        <img src="./assets/img/avocado.svg" alt="Fruit img">
+        <p class="text-darkGreen text-2xl mt-3">Avocado</p>
+      </div>
+      <div  class="my__flex--ctr flex-col w-32">
+        <img src="./assets/img/Image.svg" alt="Fruit img">
+        <p class="text-darkGreen text-2xl mt-3">Beans</p>
+      </div>
+    </div>
+
+    <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Stages</h2>
+    <ul class="steps steps-vertical ">
+      <li class="step step-success text-darkGreen text-2xl">Planting</li>
+      <li class="step step-success text-darkGreen text-2xl">Weed Control</li>
+      <li class="step step-success text-darkGreen text-2xl">Harvesting</li>
+      <li class="step step-success text-darkGreen text-2xl">Processing</li>
+    </ul>
+
+    <h2 class="text-darkGreen text-2xl font-bold mt-9">Recent Media & Files</h2>
   </div>
 </div>

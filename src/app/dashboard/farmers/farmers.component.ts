@@ -9,6 +9,7 @@ import {environment} from "../../../environments/environment";
 })
 export class FarmersComponent implements OnInit, AfterViewInit{
   farms = [1,2,3,4,5,6,7,8,9,10,11,25,5,5,5,55];
+  sideOpen: boolean = false
   map: any;
   constructor() {
   }
@@ -88,5 +89,10 @@ export class FarmersComponent implements OnInit, AfterViewInit{
 
         marker.addTo(this.map);
       });
+  }
+
+  toggleSide() {
+    this.sideOpen = !this.sideOpen;
+    console.log(this.sideOpen)
   }
 }

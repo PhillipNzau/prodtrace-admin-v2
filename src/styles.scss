@@ -102,11 +102,23 @@ body {
   }
 
 }
-.flex__btwn {
-  @apply  flex items-center justify-between
+.my__flex {
+  &--btwn {
+    @apply  flex items-center justify-between
+  }
+
+  &--ctr {
+    @apply  flex items-center justify-center
+  }
 }
 #map {
   height: 100%;
   width: 100%;
   max-width: 100%;
+}
+.show {
+  display: block;
+  min-width: 47rem;
+  opacity: 1;
+  transition: all 10s;
 }
