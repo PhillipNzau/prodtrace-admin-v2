@@ -105,3 +105,8 @@ body {
 .flex__btwn {
   @apply  flex items-center justify-between
 }
+#map {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+}

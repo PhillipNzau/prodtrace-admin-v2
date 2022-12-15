@@ -1,7 +1,6 @@
 <div class="flex justify-between">
   <div class="farm__list py-10 px-8  w-[41rem]">
     <p class="text-darkGreen text-2xl font-bold mb-9">Farmers</p>
-
     <label class="input-group">
       <span class="bg-transparent border border-r-0 bg-paleGreen rounded__edge--left h-[5rem]">
         <img src="./assets/img/search.svg" alt="Search icon">
@@ -10,7 +9,7 @@
              class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen"/>
     </label>
     <div class="h-[85vh] overflow-hidden overflow-y-scroll">
-      <div class="flex__btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8" *ngFor="let _ of farms">
+      <div class="flex__btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200" *ngFor="let _ of farms">
         <img src="./assets/img/farm-icon.svg" alt="Farms svg">
 
         <div class="pl-7 mr-auto text-2xl">
@@ -18,13 +17,22 @@
           <p class="font-extralight">Nairobi, Kenya</p>
         </div>
 
-        <img src="./assets/img/options.svg" alt="Options svg">
+
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="cursor-pointer">
+            <img src="./assets/img/options.svg" alt="Options svg">
+          </label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <div class="map">
-    sdsdsd
+  <div class="maps h-screen w-full rounded-2xl">
+    <div id="map" class="rounded-2xl"></div>
   </div>
 </div>
