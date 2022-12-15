@@ -1,1 +1,30 @@
-<p>farmers works!</p>
+<div class="flex justify-between">
+  <div class="farm__list py-10 px-8  w-[41rem]">
+    <p class="text-darkGreen text-2xl font-bold mb-9">Farmers</p>
+
+    <label class="input-group">
+      <span class="bg-transparent border border-r-0 bg-paleGreen rounded__edge--left h-[5rem]">
+        <img src="./assets/img/search.svg" alt="Search icon">
+      </span>
+      <input type="text" placeholder="Search Farmers"
+             class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen"/>
+    </label>
+    <div class="h-[85vh] overflow-hidden overflow-y-scroll">
+      <div class="flex__btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8" *ngFor="let _ of farms">
+        <img src="./assets/img/farm-icon.svg" alt="Farms svg">
+
+        <div class="pl-7 mr-auto text-2xl">
+          <p class="font-bold">Mzee Waziri</p>
+          <p class="font-extralight">Nairobi, Kenya</p>
+        </div>
+
+        <img src="./assets/img/options.svg" alt="Options svg">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="map">
+    sdsdsd
+  </div>
+</div>
