@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path:'auth', loadComponent: () => import('./auth/auth.component').then(mod => mod.AuthComponent)},
-  {path:'', redirectTo: '/auth', pathMatch: 'full'},
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard-routing').then(mod => mod.DASHBOARD_ROUTES) },
+  {path:'', redirectTo: '/dashboard', pathMatch: 'full'},
   {path:'**', redirectTo: '/auth', pathMatch: 'full'}
 ];
 

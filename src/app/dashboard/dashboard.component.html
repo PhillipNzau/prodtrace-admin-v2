@@ -1,0 +1,14 @@
+<div class="flex w-screen h-screen">
+  <div class="side__nav flex flex-col bg-darkGreen w-24 h-screen">
+    <div class="pt-10 pb-[5.5rem] px-6">
+      <img src="./assets/img/admin-logo.svg" alt="prodTrace logo">
+    </div>
+    <div class="py-[1.5rem] px-6 hover:bg-lightGreen cursor-pointer" routerLink="/dashboard" routerLinkActive="bg-lightGreen">
+      <img src="./assets/img/avatar.svg" alt="avatar svg">
+    </div>
+  </div>
+
+  <div class="main h-full w-full overflow-hidden overflow-y-scroll ">
+    <router-outlet></router-outlet>
+  </div>
+</div>
