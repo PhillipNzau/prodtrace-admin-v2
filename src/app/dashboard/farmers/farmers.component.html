@@ -1,5 +1,5 @@
 <div class="flex justify-between">
-  <div class="farm__list py-10 px-8  min-w-[41rem]">
+  <div class="farm__list py-10 px-8  min-w-[35rem]">
     <p class="text-darkGreen text-2xl font-bold mb-9">Farmers</p>
     <label class="input-group">
       <span class="bg-transparent border border-r-0 bg-paleGreen rounded__edge--left h-[5rem]">
@@ -9,7 +9,7 @@
              class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen"/>
     </label>
     <div class="h-[85vh] overflow-hidden overflow-y-scroll">
-      <div  *ngFor="let user of users" class="my__flex--btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
+      <div  *ngFor="let user of users" (click)="toggleSide()" class="my__flex--btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
         <img src="./assets/img/farm-icon.svg" alt="Farms svg">
 
         <div class="pl-7 mr-auto text-2xl" >
@@ -45,8 +45,8 @@
     <p class="text-darkGreen text-2xl ">Kilgoris</p>
 
     <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
-    <div class="my__flex--btwn flex-wrap mt-5" *ngFor="let farmCrop of farmCrops">
-      <div class="my__flex--ctr flex-col w-32">
+    <div class="flex mt-5" >
+      <div class="my__flex--ctr flex-col w-32" *ngFor="let farmCrop of farmCrops">
         <img src="./assets/img/banana.svg" alt="Fruit img">
         <p class="text-darkGreen text-2xl mt-3">{{farmCrop?.crop?.name}}</p>
       </div>

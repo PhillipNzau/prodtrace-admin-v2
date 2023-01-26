@@ -24,7 +24,7 @@ export class FarmersComponent implements OnInit, AfterViewInit {
   users: any;
   address: any;
   farmers: any;
-  sideOpen: boolean = true;
+  sideOpen: boolean = false;
   map: any;
 
   constructor(
