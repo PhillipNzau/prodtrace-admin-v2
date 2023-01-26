@@ -34,20 +34,16 @@ pipeline {
                 sshagent(credentials:['JENKINS']) {
                     sh 'scp admin-setup.sh  $SERVER:~/'
                 }
-            }
-        }
-        stage('give rights and execute') {
-            steps {
                 sshagent(credentials:['JENKINS']) {
                     sh 'ssh  -o StrictHostKeyChecking=no  $SERVER "chmod +x admin-setup.sh ; ./admin-setup.sh"'
                 }
             }
         }
-        stage('deploying prodtrace-frontend') {
+        stage('DEPLOY') {
             steps{
                 sshagent(credentials:['JENKINS']) {
-                    // sh "ssh  -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-frontend/docker-compose.yml down --remove-orphans "
-		            // sh "ssh -o StrictHostKeyChecking=no  $SERVER docker rmi 192.168.1.23:5000/prodtrace_admin:latest"
+                    sh "ssh  -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-frontend/docker-compose.yml down --remove-orphans "
+		            sh "ssh -o StrictHostKeyChecking=no  $SERVER docker rmi 192.168.1.23:5000/prodtrace_admin:latest"
                     sh "ssh -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-frontend/docker-compose.yml up -d"
                 }  
             }
