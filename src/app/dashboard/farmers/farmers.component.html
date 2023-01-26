@@ -9,12 +9,12 @@
              class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen"/>
     </label>
     <div class="h-[85vh] overflow-hidden overflow-y-scroll">
-      <div class="my__flex--btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200" *ngFor="let _ of farms" (click)="toggleSide()">
+      <div  *ngFor="let user of users" class="my__flex--btwn rounded-2xl w-100 bg-[#e7e4d5] py-8 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
         <img src="./assets/img/farm-icon.svg" alt="Farms svg">
 
-        <div class="pl-7 mr-auto text-2xl">
-          <p class="font-bold">Mzee Waziri</p>
-          <p class="font-extralight">Nairobi, Kenya</p>
+        <div class="pl-7 mr-auto text-2xl" >
+          <p class="text-black font-bold">{{user?.first_name}}</p>
+          <!--          <p class="text-black font-extralight">{{farm?.location}}</p>-->
         </div>
 
         <div class="dropdown dropdown-end">
@@ -45,28 +45,20 @@
     <p class="text-darkGreen text-2xl ">Kilgoris</p>
 
     <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
-    <div class="my__flex--btwn flex-wrap mt-5">
+    <div class="my__flex--btwn flex-wrap mt-5" *ngFor="let farmCrop of farmCrops">
       <div class="my__flex--ctr flex-col w-32">
         <img src="./assets/img/banana.svg" alt="Fruit img">
-        <p class="text-darkGreen text-2xl mt-3">Banana</p>
-      </div>
-      <div  class="my__flex--ctr flex-col w-32">
-        <img src="./assets/img/avocado.svg" alt="Fruit img">
-        <p class="text-darkGreen text-2xl mt-3">Avocado</p>
-      </div>
-      <div  class="my__flex--ctr flex-col w-32">
-        <img src="./assets/img/Image.svg" alt="Fruit img">
-        <p class="text-darkGreen text-2xl mt-3">Beans</p>
+        <p class="text-darkGreen text-2xl mt-3">{{farmCrop?.crop?.name}}</p>
       </div>
     </div>
 
-    <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Stages</h2>
-    <ul class="steps steps-vertical ">
-      <li class="step step-success text-darkGreen text-2xl">Planting</li>
-      <li class="step step-success text-darkGreen text-2xl">Weed Control</li>
-      <li class="step step-success text-darkGreen text-2xl">Harvesting</li>
-      <li class="step step-success text-darkGreen text-2xl">Processing</li>
-    </ul>
+    <!--    <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Stages</h2>-->
+    <!--    <ul class="steps steps-vertical ">-->
+    <!--      <li class="step step-success text-darkGreen text-2xl">Planting</li>-->
+    <!--      <li class="step step-success text-darkGreen text-2xl">Weed Control</li>-->
+    <!--      <li class="step step-success text-darkGreen text-2xl">Harvesting</li>-->
+    <!--      <li class="step step-success text-darkGreen text-2xl">Processing</li>-->
+    <!--    </ul>-->
 
     <h2 class="text-darkGreen text-2xl font-bold mt-9">Recent Media & Files</h2>
   </div>
