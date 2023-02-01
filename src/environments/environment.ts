@@ -11,6 +11,8 @@ const farmBaseUrl = url + 'farm/';
 const plantCycleUrl = url + 'plant-cycle/';
 const cropBaseUrl = farmBaseUrl + 'crop/';
 const farmCropBaseUrl = farmBaseUrl + 'farm-crop/';
+const chatBaseUrl = url + 'chat/';
+
 const geoCoderUrl = 'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=';
 // const geoCoderUrl = 'http://139.180.192.124:8080/';
 export const environment = {
@@ -57,6 +59,15 @@ export const environment = {
   ///////////////** PLANT CYCLE URLS **///////////////////
   createPlantCycle: plantCycleUrl,
   listPlantCycle: plantCycleUrl + '?limit=100',
+
+  ///////////////** CHAT URLS **///////////////////
+  listChats: chatBaseUrl,
+  createChat: chatBaseUrl,
+  getChat: chatBaseUrl,
+  updateChat: chatBaseUrl,
+  unRepliedChats: chatBaseUrl + 'un-replied/',
+  unReadResponse: chatBaseUrl + 'unread-responce/',
+
 
 
   // Get location

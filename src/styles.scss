@@ -103,7 +103,7 @@ body {
 
 }
 .my__flex {
-  &--btwn {
+  &--between {
     @apply  flex items-center justify-between
   }
 
@@ -117,10 +117,7 @@ body {
   max-width: 100%;
 }
 .show {
-  display: block;
-  min-width: 47rem;
-  opacity: 1;
-  transition: all 10s;
+  @apply block min-w-[30rem] max-w-[30rem];
 }
 .marker-cluster-small {
   color: white;
