@@ -22,6 +22,7 @@ import {environment} from "../environments/environment";
 import {AuthInterceptor} from "./shared/service/auth.interceptor";
 import {LoginDataService} from "./auth/services/login/login-data.service";
 import {UsersDataService} from "./dashboard/services/user/users-data.service";
+import {ChatDataService} from "./dashboard/services/chat/chat-data.service";
 
 @NgModule({
   declarations: [
@@ -54,11 +55,13 @@ export class AppModule {
     FarmCropDataService: FarmCropDataService,
     CropDataService: CropDataService,
     PlantCycleDataService: PlantCycleDataService,
+    ChatService: ChatDataService,
   ) {
     entityDataService.registerServices({'Users': UsersDataService})
     entityDataService.registerServices({'Farms': FarmsDataService})
     entityDataService.registerServices({'FarmCrop': FarmCropDataService})
     entityDataService.registerServices({'Crop': CropDataService})
     entityDataService.registerServices({'PlantCycle': PlantCycleDataService})
+    entityDataService.registerServices({'Chat': ChatService})
   }
 }

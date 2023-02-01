@@ -9,7 +9,8 @@ const entityMetadata: EntityMetadataMap = {
       return entities.filter(entity => entity.user_type_id == searchTerm);
     }
   },
-  PlantCycle: {}
+  PlantCycle: {},
+  Chat: {},
 };
 
 const pluralNames = {  };

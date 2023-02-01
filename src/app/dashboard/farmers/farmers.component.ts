@@ -11,6 +11,10 @@ import {FarmsService} from "../services/farm/farms.service";
 import {UsersService} from "../services/user/users.service";
 import {FarmCropInterface} from "../types/cropInterface";
 import {FarmCropService} from "../services/farm-crop/farm-crop.service";
+import {UserInterface} from "../types/userInterface";
+import {ChatModel} from "../types/chatInterface";
+import {ChatEntityService} from "../services/chat/chat-entity.service";
+import {UntypedFormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-farmers',
@@ -19,25 +23,39 @@ import {FarmCropService} from "../services/farm-crop/farm-crop.service";
 })
 export class FarmersComponent implements OnInit, AfterViewInit {
   farms: any;
-  farmName:any;
+  farmName: string = '';
+  farmerName: any;
   farmCrops: any;
+
   users: any;
   address: any;
   farmers: any;
   sideOpen: boolean = false;
   map: any;
+  selectedChatId!: number;
+  replyMessage!: string;
+
+  chats: ChatModel | any;
+
+  // Reply form
+  replyForm = this.fb.group({
+    id: ['', Validators.required],
+    reply:['', Validators.required],
+    is_message_replied:['', Validators.required],
+  })
 
   constructor(
+    private fb: UntypedFormBuilder,
     private farmsService: FarmsService,
     private farmCropService: FarmCropService,
     private usersService: UsersService,
+    private chatService: ChatEntityService
   ) {
   }
 
   ngOnInit() {
     this.farmsService.entities$.subscribe({
       next: (data: FarmInterface[]) => {
-        console.log('farms', data)
         this.farms = data
       },
       error: (error) => {
@@ -54,10 +72,27 @@ export class FarmersComponent implements OnInit, AfterViewInit {
       }
     });
 
-
+    this.getChats()
   }
 
-  /// Get filter
+  //// Get form controls
+  get cf() {
+    return this.replyForm!.controls;
+  }
+
+  //// Get all the chats
+  getChats() {
+    this.chatService.entities$.subscribe({
+      next: (data: ChatModel[]) => {
+        this.chats = data
+      },
+      error: (error) => {
+        console.log('err', error)
+      }
+    })
+  }
+
+  /// Get filtered user
   getFilteredUsers() {
     this.usersService.setFilter(2)
     this.usersService.filteredEntities$.subscribe({
@@ -69,6 +104,13 @@ export class FarmersComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  toggleSide(user: any) {
+    this.sideOpen = !this.sideOpen;
+    this.farmerName = user.first_name + ' ' + user.last_name;
+    console.log(this.farmerName)
+  }
+
 
   /////////////////////**** MAP **** /////////////////////
   public ngAfterViewInit() {
@@ -114,7 +156,21 @@ export class FarmersComponent implements OnInit, AfterViewInit {
                 error: (error) => {
                   console.log('err', error)
                 }
+              });
+              this.usersService.entities$.subscribe({
+                next:(users: any) => {
+                  this.farmerName = users.filter((user: UserInterface) =>{
+                    return user.id === this.address[i].user_id
+                  });
+                },
+                error: (error) => {
+                  console.log('err', error)
+                }
               })
+
+              this.farmName = name;
+              const farmerName = this.farmerName[0].first_name + ' ' + this.farmerName[0].last_name;
+              this.farmerName = farmerName;
               // this.sideOpen = !this.sideOpen
             });
         const popup = L.popup({
@@ -195,9 +251,27 @@ export class FarmersComponent implements OnInit, AfterViewInit {
     //     marker.addTo(this.map);
     //   });
   }
+  /////////////////////**** End of MAP **** /////////////////////
 
-  toggleSide() {
-    this.sideOpen = !this.sideOpen;
-    console.log(this.sideOpen)
+  getSelectedChat(id: number) {
+    this.selectedChatId = id;
   }
+  replySubmit() {
+    const update = {
+      id: this.selectedChatId,
+      reply: this.cf['reply'].value,
+      is_message_replied: true
+    }
+    this.chatService.update(update).subscribe({
+      next: () => {
+        this.replyForm.reset();
+      },
+      error: (error) => {
+        console.log('err', error)
+      }
+    })
+
+  }
+
+
 }

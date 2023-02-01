@@ -1,4 +1,4 @@
-import {UserInterface} from "../../../auth/types/userModel";
+import {UserInterface} from "./userInterface";
 
 export interface PlantCycleResponseInterface {
   count?: number,
