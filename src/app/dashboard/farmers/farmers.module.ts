@@ -3,17 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { FarmersRoutingModule } from './farmers-routing.module';
 import { FarmersComponent } from './farmers.component';
-import {ReactiveFormsModule} from "@angular/forms";
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './services/search.pipe';
 
 @NgModule({
-  declarations: [
-    FarmersComponent
+  declarations: [FarmersComponent, SearchPipe],
+  imports: [
+    CommonModule,
+    FarmersRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
-    imports: [
-        CommonModule,
-        FarmersRoutingModule,
-        ReactiveFormsModule
-    ]
 })
-export class FarmersModule { }
+export class FarmersModule {}
