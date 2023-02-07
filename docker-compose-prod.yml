@@ -1,0 +1,8 @@
+version: '3'
+services:
+  prodtrace-frontend:
+    image: 45.32.22.181:5000/prodtrace_admin:latest
+    #build: .
+    ports:
+      - "446:443"
+    restart: always
