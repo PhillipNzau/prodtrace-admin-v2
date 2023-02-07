@@ -24,8 +24,6 @@ pipeline {
                 script {
                     dockerImage1 = docker.build("$imageName:$BUILD_NUMBER", "-f Dockerfile.staging .")
                     dockerImage2 = docker.build("$imageName:$BUILD_NUMBER", "-f Dockerfile.production .")
-                }
-                script {
                     if (env.gitlabBranch == 'master') {
                         docker.withRegistry( productionRegistryUrl,  ) {
                             dockerImage2.push()
