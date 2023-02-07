@@ -6,7 +6,7 @@ pipeline {
         registry = 'prodtrace-admin'
         registryCredential = 'dockerhub'
         stagingRegistryUrl = 'http://192.168.1.23:5000'
-        productioRegistryUrl = 'http://45.32.22.181:5000'
+        productionRegistryUrl = 'http://45.32.22.181:5000'
         dockerImage1 = ''
         dockerImage2 = ''
         STAGING_SERVER ='192.168.1.24'
