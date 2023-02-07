@@ -2,12 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 // const url = 'http://192.168.1.24:8000/api/v1/';
-// const url = 'http://192.168.0.123:8000/api/v1/';
 const url = 'https://prodtrace.io:4443/api/v1/';
 
 const userBaseUrl = url + 'user/';
 const farmBaseUrl = url + 'farm/';
 const plantCycleUrl = url + 'plant-cycle/';
+const chatBaseUrl = url + 'chat/';
+
 const cropBaseUrl = farmBaseUrl + 'crop/';
 const farmCropBaseUrl = farmBaseUrl + 'farm-crop/';
 const geoCoderUrl =
@@ -57,6 +58,15 @@ export const environment = {
   ///////////////** PLANT CYCLE URLS **///////////////////
   createPlantCycle: plantCycleUrl,
   listPlantCycle: plantCycleUrl + '?limit=100',
+  listPlantCycleQuery: plantCycleUrl + 'qr-code?',
+
+  ///////////////** CHAT URLS **///////////////////
+  listChats: chatBaseUrl,
+  createChat: chatBaseUrl,
+  getChat: chatBaseUrl,
+  updateChat: chatBaseUrl,
+  unRepliedChats: chatBaseUrl + 'un-replied/',
+  unReadResponse: chatBaseUrl + 'unread-responce/',
 
   // Get location
   userLocation: geoCoderUrl,
