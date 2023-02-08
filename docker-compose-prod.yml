@@ -6,6 +6,6 @@ services:
     ports:
       - "446:443"
     restart: always
-    volumes:
-      - /etc/letsencrypt/live/prodtrace.io/fullchain.pem:/etc/nginx/nginx-selfsigned.crt
-      - /etc/letsencrypt/live/prodtrace.io/privkey.pem:/etc/nginx/nginx-selfsigned.key
+    # volumes:
+    #   - /etc/letsencrypt/live/prodtrace.io/fullchain.pem:/etc/nginx/nginx-selfsigned.crt
+    #   - /etc/letsencrypt/live/prodtrace.io/privkey.pem:/etc/nginx/nginx-selfsigned.key
