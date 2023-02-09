@@ -22,8 +22,6 @@ pipeline {
         stage ('BUILD') {
             steps{
                 script {
-                    // dockerImage1 = docker.build("$imageName:$BUILD_NUMBER", "-f Dockerfile.staging .")
-                    // dockerImage2 = docker.build("$imageName:$BUILD_NUMBER", "-f Dockerfile.production .")
                     if (env.gitlabBranch == 'master') {
                             dockerImage2 = docker.build("$imageName:$BUILD_NUMBER"," -f Dockerfile.production .")
                     } else {
