@@ -7,7 +7,7 @@ pipeline {
         registryCredential = 'dockerhub'
         stagingRegistryUrl = 'http://192.168.1.23:5000'
         productionRegistryUrl = 'http://45.32.22.181:5000'
-        dockerImage1 = ''
+        dockerImage1 = '' 
         dockerImage2 = ''
         STAGING_SERVER ='192.168.1.24'
         PROD_SERVER ='45.76.214.70'
@@ -36,8 +36,7 @@ pipeline {
                         }
                 }
                 }
-                sh '''docker rmi $imageName:$BUILD_NUMBER
-                    '''
+                sh '''docker rmi $imageName:$BUILD_NUMBER'''
             }
         }
         stage ('SERVER SETUP') {
