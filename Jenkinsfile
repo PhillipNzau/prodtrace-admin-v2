@@ -13,7 +13,7 @@ pipeline {
         PROD_SERVER ='45.76.214.70'
     }
     stages {
-        stage('Cloning our Git') {
+        stage('CLONING PROJECT') {
             steps {
                 echo 'Pulling... ' + env.gitlabBranch
                 git(url:'http://192.168.0.207/prodtrace/prodtrace-admin.git', branch: env.gitlabBranch , credentialsId: 'GIT_CRED')
