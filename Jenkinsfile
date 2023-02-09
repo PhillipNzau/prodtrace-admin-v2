@@ -71,8 +71,9 @@ pipeline {
                     // sh "ssh -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-admin/docker-compose.yml up -d"
                     script{
                         if (env.gitlabBranch == 'master') {
+                            sh "ssh  -o StrictHostKeyChecking=no  $PRODUCTION_SERVER prodtrace-admin/docker-compose.yml down --remove-orphans"
+                            sh "ssh -o StrictHostKeyChecking=no  $PROD_SERVER docker rmi 45.76.214.70:5000/prodtrace_admin:latest"
                             sh "ssh  -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/docker-compose-prod.yml up -d"
-                            // sh "ssh  -o StrictHostKeyChecking=no  $PRODUCTION_SERVER prodtrace-admin/docker-compose.yml down --remove-orphans"
 
                         } else {
                             sh "ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/docker-compose.yml down --remove-orphans "
