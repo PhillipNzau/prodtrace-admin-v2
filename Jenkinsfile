@@ -49,12 +49,6 @@ pipeline {
         }
         stage ('SERVER SETUP') {
             steps{
-                // sshagent(credentials:['JENKINS']) {
-                //     sh 'scp admin-setup.sh  $SERVER:~/'
-                // }
-                // sshagent(credentials:['JENKINS']) {
-                //     sh 'ssh  -o StrictHostKeyChecking=no  $SERVER "chmod +x admin-setup.sh ; ./admin-setup.sh"'
-                // }
                 sshagent(credentials:['JENKINS']) {
                     script{
                         if (env.gitlabBranch == 'master') {
