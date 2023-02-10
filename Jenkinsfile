@@ -66,9 +66,6 @@ pipeline {
         stage('DEPLOY') {
             steps{
                 sshagent(credentials:['JENKINS']) {
-                    // sh "ssh  -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-admin/docker-compose.yml down --remove-orphans "
-		            // sh "ssh -o StrictHostKeyChecking=no  $SERVER docker rmi 192.168.1.23:5000/prodtrace_admin:latest"
-                    // sh "ssh -o StrictHostKeyChecking=no  $SERVER docker-compose -f prodtrace-admin/docker-compose.yml up -d"
                     script{
                         if (env.gitlabBranch == 'master') {
                             sh "ssh  -o StrictHostKeyChecking=no  $PRODUCTION_SERVER prodtrace-admin/docker-compose.yml down --remove-orphans"
