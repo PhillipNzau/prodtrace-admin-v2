@@ -3,7 +3,6 @@ RUN mkdir -p /home/prodtrace
 WORKDIR /home/prodtrace
 COPY . .
 
-
 RUN apt update -y
 RUN apt install nginx -y
 RUN npm install -g @angular/cli
