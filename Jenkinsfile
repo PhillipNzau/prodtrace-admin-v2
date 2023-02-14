@@ -60,7 +60,7 @@ pipeline {
                 }
             }
         }
-        stage('DEPLOY') {
+        stage('DEPLOY PROJECT') {
             steps{
                 sshagent(credentials:['JENKINS']) {
                     script{
@@ -68,7 +68,7 @@ pipeline {
                             sh "ssh  -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/docker-compose-prod.yml down --remove-orphans"
                             sh "ssh -o StrictHostKeyChecking=no  $PROD_SERVER docker rmi 45.76.214.70:5000/prodtrace_admin:latest"
                             sh "ssh  -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/docker-compose-prod.yml up -d"
-                        } else {
+                         } else {
                             sh "ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/docker-compose-staging.yml down --remove-orphans "
 		            sh "ssh -o StrictHostKeyChecking=no  $STAGING_SERVER docker rmi 192.168.1.23:5000/prodtrace_admin:latest"
                             sh "ssh -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/docker-compose-staging.yml up -d"
