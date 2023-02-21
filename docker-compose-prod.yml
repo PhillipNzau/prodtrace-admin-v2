@@ -6,4 +6,5 @@ services:
       - "446:443"
     restart: always
     volumes:
-      - /etc/letsencrypt/live/mobile.prodtrace.io:/etc/ssl/certs
+      - /etc/letsencrypt/live/mobile.prodtrace.io/fullchain.pem:/etc/ssl/certs/fullchain.pem
+      - /etc/letsencrypt/live/mobile.prodtrace.io/privkey.pem:/etc/ssl/certs/privkey.pem
