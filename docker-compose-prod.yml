@@ -6,4 +6,4 @@ services:
       - "446:443"
     restart: always
     volumes:
-      - /etc/letsencrypt/live/mobile.prodtrace.io:/etc/ssl/certs/
+      - /etc/letsencrypt/live/mobile.prodtrace.io:/etc/ssl/certs
