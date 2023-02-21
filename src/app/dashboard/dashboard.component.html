@@ -1,0 +1,28 @@
+<div class="flex w-screen h-screen">
+  <div class="relative side__nav flex flex-col bg-darkGreen w-24 h-screen">
+    <div class="pt-10 pb-[5.5rem] px-6">
+      <img src="./assets/img/admin-logo.svg" alt="prodTrace logo">
+    </div>
+    <div class="py-[1.5rem] px-6 hover:bg-lightGreen cursor-pointer" routerLink="/dashboard"
+         routerLinkActive="bg-lightGreen">
+      <img src="./assets/img/avatar.svg" alt="avatar svg">
+    </div>
+
+    <div data-tip="Log Out user"
+         class=" tooltip  absolute bottom-1 py-[1.5rem] w-full my__flex--ctr hover:bg-lightGreen cursor-pointer"
+         (click)="logout()">
+      <svg width="30" height="30" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.9556 7.39062L18.565 11L14.9556 14.6094" stroke="white" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+        <path d="M8.9375 11H18.5625" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path
+          d="M10.3125 18.5625H4.125C3.94266 18.5625 3.7678 18.4901 3.63886 18.3611C3.50993 18.2322 3.4375 18.0573 3.4375 17.875V4.125C3.4375 3.94266 3.50993 3.7678 3.63886 3.63886C3.7678 3.50993 3.94266 3.4375 4.125 3.4375H10.3125"
+          stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="main h-full w-full overflow-hidden bg-bgPrimary ">
+    <router-outlet></router-outlet>
+  </div>
+</div>

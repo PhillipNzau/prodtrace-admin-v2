@@ -1,0 +1,114 @@
+<div class="flex justify-between" xmlns="http://www.w3.org/1999/html">
+  <!--  Left side bar-->
+  <div class="farm__list py-10 px-8  min-w-[32rem]">
+    <p class="text-darkGreen text-2xl font-bold mb-9">Farmers</p>
+    <label class="input-group">
+      <span class="bg-transparent border border-r-0 bg-paleGreen rounded__edge--left h-[5rem]">
+        <img src="./assets/img/search.svg" alt="Search icon">
+      </span>
+      <input type="search" placeholder="Search Farmers"
+             [(ngModel)]="searchTerm"
+             class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen" />
+    </label>
+    <div class="h-[85vh] overflow-hidden overflow-y-scroll">
+      <div *ngFor="let user of users | search:searchTerm:['first_name', 'last_name']"
+           (click)="toggleSide(user, user.id)"
+           class="my__flex--between rounded-2xl w-100 bg-[#e7e4d5] py-4 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
+        <img class="" src="./assets/img/farm-icon.svg" alt="Farms svg">
+
+        <div class="pl-7 mr-auto text-2xl">
+          <p class="text-black font-bold">{{user?.first_name}}</p>
+          <!--          <p class="text-black font-extralight">{{farm?.location}}</p>-->
+        </div>
+
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="cursor-pointer ">
+            <img src="./assets/img/options.svg" alt="Options svg">
+          </label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!--  Map section-->
+  <div class="maps h-screen w-full rounded-2xl">
+    <div id="map" class="rounded-2xl"></div>
+  </div>
+
+  <!--  Right side bar-->
+  <div class="py-10 px-8 h-full min-w-[32rem] max-w-[32rem] hidden" [ngClass]="{'show ': sideOpen}">
+    <div class="h-[92vh] overflow-hidden overflow-y-scroll py-5">
+
+      <div class="bg-paleGreen my__flex--ctr flex-col py-8 rounded-2xl md:py-11">
+        <div
+          class="bg-lightGreen w-48 h-48
+        rounded-full my__flex--ctr
+        text-darkGreen font-extraboldbold text-[5.6rem] leading-none md:w-56 md:h-56">
+          <p>MW</p></div>
+        <p class="text-darkGreen text-3xl font-bold mt-9">{{farmerName}}</p>
+      </div>
+
+      <h2 class="text-darkGreen text-2xl font-bold mt-6">Farm Name</h2>
+      <p class="text-darkGreen text-2xl ">{{farmName}}</p>
+
+      <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
+      <div class="flex items-center flex-wrap gap-4 w-full mt-5">
+        <div class="text-center" *ngFor="let farmCrop of farmCrops">
+          <img src="./assets/img/banana.svg" alt="Fruit img">
+          <p class="text-darkGreen text-2xl mt-3">{{farmCrop?.crop?.name}}</p>
+        </div>
+      </div>
+
+
+      <h2 class="text-darkGreen text-2xl font-bold mt-9">Recent Messages</h2>
+      <div class="flex flex-col mt-8">
+        <label for="my-modal-4"
+               *ngFor="let chat of chats"
+               class="my__flex--between rounded-2xl w-100 bg-white shadow-md py-4 px-6 mb-8 cursor-pointer hover:bg-slate-100 transition-all duration-200"
+               (click)="getSelectedChat(chat.id)"
+               [ngClass]="{'read': chat.is_message_replied == true}"
+        >
+          <div class="flex flex-col">
+            <p class="text-darkGreen text-2xl font-bold mt-3">{{chat.title}}</p>
+            <p class="text-darkGreen text-xl mt-3">{{chat.message}}</p>
+            <p class="text-darkGreen text-base mt-3">{{chat.created_at | date:'fullDate'}}</p>
+          </div>
+        </label>
+      </div>
+      <h2 class="text-darkGreen text-2xl font-bold mt-9">Account Info</h2>
+    </div>
+
+  </div>
+</div>
+
+<!--Modals-->
+<!-- Put this part before </body> tag -->
+<input type="checkbox" id="my-modal-4" class="modal-toggle" />
+<label for="my-modal-4" class="modal cursor-pointer">
+  <label class="modal-box relative">
+    <h3 class="text-darkGreen text-3xl text-center">Reply</h3>
+    <form class="py-4" [formGroup]="replyForm" (ngSubmit)="replySubmit()">
+      <div class="form-control">
+        <label class="label">
+          <span class="text-darkGreen text-2xl">Message</span>
+        </label>
+        <label class="">
+          <textarea formControlName="reply" placeholder="Your reply" class="h-72 border-darkGreen"></textarea>
+        </label>
+      </div>
+      <div class="modal-action">
+        <label for="my-modal-4"
+               class="btn h-20 text-2xl font-bold  rounded-2xl bg-slate-200 text-black hover:bg-slate-200 hover:border-slate-200">Cancel</label>
+        <button
+          class="btn h-20 text-2xl font-bold w-40 rounded-2xl bg-darkGreen text-bgPrimary hover:bg-lightGreen hover:border-lightGreen">
+          Send
+        </button>
+      </div>
+    </form>
+  </label>
+</label>

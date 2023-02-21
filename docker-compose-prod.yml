@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  prodtrace-frontend:
+    image: 45.32.22.181:5000/prodtrace_admin:latest
+    ports:
+      - "446:443"
+    restart: always
+    volumes:
+      - /etc/letsencrypt/live/mobile.prodtrace.io:/etc/ssl/certs/
