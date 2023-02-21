@@ -27,7 +27,6 @@ pipeline {
                     } else {
                             dockerImage1 = docker.build("$imageName:$BUILD_NUMBER", "-f Dockerfile.staging .")
                         }
-                    }
 
                     if (env.gitlabBranch == 'master') {
                         docker.withRegistry( productionRegistryUrl,  ) {
@@ -39,10 +38,11 @@ pipeline {
                             dockerImage1.push()
                             dockerImage1.push("latest")
                         }
+                    }
                 }
                 sh '''docker rmi $imageName:$BUILD_NUMBER
                    '''
-                }
+            }
         }
         stage ('SERVER SETUP') {
             steps{
@@ -56,7 +56,6 @@ pipeline {
                             '''
                         }
                     }
-
                 }
             }
         }
