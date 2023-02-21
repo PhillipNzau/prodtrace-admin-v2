@@ -52,7 +52,7 @@ pipeline {
                             sh './production-setup.sh'
                         } else {
                             sh '''scp staging-setup.sh  $STAGING_SERVER:~/
-                            ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x staging-setup.sh ; ./staging-setup.sh
+                                  ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x staging-setup.sh ; ./staging-setup.sh
                             '''
                         }
                     }
