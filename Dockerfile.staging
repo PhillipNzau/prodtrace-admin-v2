@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build --configurations staging
+RUN npm run build --mode staging
 
 
 FROM nginx:1.21.3-alpine
