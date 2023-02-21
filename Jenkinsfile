@@ -68,7 +68,7 @@ pipeline {
                             sh './production-setup.sh'
                         } else {
                             sh '''scp pre-deployment.sh  $STAGING_SERVER:~/
-                                  ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x pre-deployment.sh ; ./pre-deployment.sh
+                                  ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x prodtrace-admin-deployment.sh ; ./prodtrace-admin-deployment.sh
                             '''
                             sh 'scp docker-compose.staging.yml $STAGING_SERVER:~/prodtrace-admin/frontend/deployment/current/'
                         }
