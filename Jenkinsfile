@@ -11,14 +11,17 @@ pipeline {
         STAGING_SERVER ='192.168.1.24'
         PROD_SERVER ='45.76.214.70'
     }
+
     stages {
-        stage('CLONING PROJECT') {
+
+        stage('Cloning Project') {
             steps {
                 echo 'Pulling... ' + env.gitlabBranch
                 git(url:'http://192.168.0.207/prodtrace/prodtrace-admin.git', branch: env.gitlabBranch , credentialsId: 'GIT_CRED')
             }
         }
-        stage ('BUILD') {
+
+        stage ('Build') {
             steps{
                 script {
                     if (env.gitlabBranch == 'master') {
@@ -34,21 +37,7 @@ pipeline {
                                 dockerImage.push("latest")
                             }
                         }
-
-//                     if (env.gitlabBranch == 'master') {
-//                         docker.withRegistry( productionRegistryUrl,  ) {
-//                             dockerImage2.push()
-//                             dockerImage2.push("latest")
-//                         }
-//                     } else {
-//                         docker.withRegistry( stagingRegistryUrl,  ) {
-//                             dockerImage1.push()
-//                             dockerImage1.push("latest")
-//                         }
-//                     }
                 }
-//                 sh '''docker rmi $imageName:$BUILD_NUMBER
-//                    '''
             }
         }
 
@@ -58,14 +47,15 @@ pipeline {
             }
         }
 
-
-
-        stage ('SERVER SETUP') {
+        stage ('Server Setup') {
             steps{
                 sshagent(credentials:['JENKINS']) {
                     script{
                         if (env.gitlabBranch == 'master') {
-                            sh './production-setup.sh'
+                            sh "scp prodtrace-admin-deployment.sh  $PROD_SERVER:~/"
+                            sh 'ssh  -o StrictHostKeyChecking=no  $PROD_SERVER "chmod +x prodtrace-admin-deployment.sh ; ./prodtrace-admin-deployment.sh"'
+                            sh 'scp docker-compose-prod.yml $PROD_SERVER:~/prodtrace-admin/frontend/deployment/current/'
+
                         } else {
                             sh "scp prodtrace-admin-deployment.sh  $STAGING_SERVER:~/"
                             sh 'ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER "chmod +x prodtrace-admin-deployment.sh ; ./prodtrace-admin-deployment.sh"'
@@ -76,16 +66,12 @@ pipeline {
             }
         }
 
-
-
-        stage('DEPLOY PROJECT') {
+        stage('Deploy Project') {
             steps{
                 sshagent(credentials:['JENKINS']) {
                     script{
                         if (env.gitlabBranch == 'master') {
-                            sh "ssh  -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/docker-compose-prod.yml down --remove-orphans"
-                            sh "ssh -o StrictHostKeyChecking=no  $PROD_SERVER docker rmi 45.76.214.70:5000/prodtrace_admin:latest"
-                            sh "ssh  -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/docker-compose-prod.yml up -d"
+                           sh "ssh -o StrictHostKeyChecking=no  $PROD_SERVER docker-compose -f prodtrace-admin/frontend/deployment/current/docker-compose-prod.yml up -d"
                          }else {
                             sh "ssh -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/frontend/deployment/current/docker-compose-staging.yml up -d"
                         }
@@ -93,7 +79,6 @@ pipeline {
                 }
             }
         }
-
 
     }
 }

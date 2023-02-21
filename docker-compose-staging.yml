@@ -8,6 +8,3 @@ services:
     restart: always
     volumes:
       - /home/jenkins/certs:/etc/ssl/certs
-
-
-
