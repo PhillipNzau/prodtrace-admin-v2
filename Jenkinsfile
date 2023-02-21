@@ -67,9 +67,8 @@ pipeline {
                         if (env.gitlabBranch == 'master') {
                             sh './production-setup.sh'
                         } else {
-                            sh '''scp pre-deployment.sh  $STAGING_SERVER:~/
-                                  ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x prodtrace-admin-deployment.sh ; ./prodtrace-admin-deployment.sh
-                            '''
+                            sh "scp prodtrace-admin-deployment.sh  $STAGING_SERVER:~/"
+                            sh "ssh  -o StrictHostKeyChecking=no  $STAGING_SERVER chmod +x prodtrace-admin-deployment.sh ; ./prodtrace-admin-deployment.sh"
                             sh 'scp docker-compose.staging.yml $STAGING_SERVER:~/prodtrace-admin/frontend/deployment/current/'
                         }
                     }
