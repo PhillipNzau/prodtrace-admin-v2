@@ -2,7 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 // const url = 'http://192.168.1.24:8000/api/v1/';
-const url = 'https://prodtrace.io:4443/api/v1/';
+const url = 'https://mobile.prodtrace.io:4443/api/v1/';
 
 const userBaseUrl = url + 'user/';
 const farmBaseUrl = url + 'farm/';
