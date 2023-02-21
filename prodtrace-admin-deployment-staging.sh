@@ -1,5 +1,5 @@
 CURRENT_FOLDER=~/prodtrace-admin/frontend/deployment/current
-DOCKER_COMPOSE=$CURRENT_FOLDER/docker-compose.staging.yml
+DOCKER_COMPOSE=$CURRENT_FOLDER/docker-compose-staging.yml
 PREVIOUS_FOLDER=~/prodtrace-admin/frontend/deployment/previous
 
 if [ -d "$CURRENT_FOLDER" ]; then
