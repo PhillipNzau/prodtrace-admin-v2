@@ -1,19 +1,11 @@
-FROM node:14
-RUN mkdir -p /home/prodtrace
-WORKDIR /home/prodtrace
-COPY . .
-
-RUN apt update -y
-RUN apt install nginx -y
-RUN npm install -g @angular/cli
+FROM node:18.13 AS builder
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-RUN ng build  --configuration staging
-RUN cp -R dist/prodtrace-admin/ /var/www/html/
-RUN cp docker/ssl/nginx-selfsigned.crt  /etc/ssl/certs/nginx-selfsigned.crt
-RUN cp docker/ssl/nginx-selfsigned.key  /etc/ssl/private/nginx-selfsigned.key
-RUN rm /etc/nginx/sites-available/default
-RUN cp docker/nginx/default-staging.conf /etc/nginx/sites-available/default
-RUN service nginx start
+COPY . .
+RUN npm run build --configuration staging
 
-EXPOSE 80  443
-ENTRYPOINT service nginx start && tail -f /dev/null
+
+FROM nginx:1.21.3-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY docker/nginx/staging.conf /etc/nginx/conf.d/default.conf

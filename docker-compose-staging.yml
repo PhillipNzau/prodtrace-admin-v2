@@ -1,9 +1,13 @@
-version: '3'
+version: '3.8'
+
 services:
   prodtrace-frontend:
     image: 192.168.1.23:5000/prodtrace_admin:latest
-    #build: .
     ports:
       - "446:443"
     restart: always
+    volumes:
+      - /home/jenkins/certs:/etc/ssl/certs
+
+
 
