@@ -11,13 +11,15 @@ const chatBaseUrl = url + 'chat/';
 
 const cropBaseUrl = farmBaseUrl + 'crop/';
 const farmCropBaseUrl = farmBaseUrl + 'farm-crop/';
-const geoCoderUrl = 'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=';
+const geoCoderUrl =
+  'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=';
 // const geoCoderUrl = 'http://139.180.192.124:8080/';
 export const environment = {
   mapbox: {
-    accessToken: 'pk.eyJ1IjoicGhpbGxpcDc4IiwiYSI6ImNsZGJsYzQxcDAxcHMzb3E1NW80Nzg5YWoifQ.4_d9rNJlocMnH6klTZaa9Q',
+    accessToken:
+      'pk.eyJ1IjoicGhpbGxpcDc4IiwiYSI6ImNsZGJsYzQxcDAxcHMzb3E1NW80Nzg5YWoifQ.4_d9rNJlocMnH6klTZaa9Q',
   },
-  production: true,
+  production: false,
 
   ///////////////** USER URLS **///////////////////
   listUsers: userBaseUrl,
@@ -66,10 +68,8 @@ export const environment = {
   unRepliedChats: chatBaseUrl + 'un-replied/',
   unReadResponse: chatBaseUrl + 'unread-responce/',
 
-
   // Get location
-  userLocation: geoCoderUrl
-
+  userLocation: geoCoderUrl,
 };
 
 /*
