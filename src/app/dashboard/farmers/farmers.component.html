@@ -54,14 +54,28 @@
       </div>
 
       <h2 class="text-darkGreen text-2xl font-bold mt-6">Farm Name</h2>
-      <p class="text-darkGreen text-2xl ">{{farmName}}</p>
+      <p class="text-darkGreen text-2xl ">{{farmName || 'Please select from Map'}}</p>
 
       <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
       <div class="flex items-center flex-wrap gap-4 w-full mt-5">
-        <div class="text-center" *ngFor="let farmCrop of farmCrops">
+        <div class="text-center p-4"
+             [ngClass]="{'bg-[#e7e4d5] rounded-2xl': selectedFcropIndex === i}"
+             *ngFor="let farmCrop of farmCrops; index as i" (click)="getRecentActivities(farmCrop, i)">
           <img src="./assets/img/banana.svg" alt="Fruit img">
           <p class="text-darkGreen text-2xl mt-3">{{farmCrop?.crop?.name}}</p>
         </div>
+      </div>
+
+      <h2 class="text-darkGreen text-2xl font-bold mt-9">Recent Activities</h2>
+      <div *ngFor="let cycle of plantCycles"
+           class="rounded-2xl w-100 bg-white shadow-md py-4 px-6 mb-8 cursor-pointer hover:bg-slate-100 transition-all duration-200">
+        <p class="text-darkGreen text-2xl font-bold mt-3">{{cycle.activity_type}}</p>
+        <p class="text-darkGreen text-xl mt-3">
+          {{cycle.plant_cycle_stage}}
+        </p>
+        <p class="text-darkGreen text-base mt-3">
+          {{cycle.description}}
+        </p>
       </div>
 
 
@@ -80,7 +94,7 @@
           </div>
         </label>
       </div>
-      <h2 class="text-darkGreen text-2xl font-bold mt-9">Account Info</h2>
+<!--      <h2 class="text-darkGreen text-2xl font-bold mt-9">Account Info</h2>-->
     </div>
 
   </div>

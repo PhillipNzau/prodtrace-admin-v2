@@ -13,6 +13,8 @@ import { UserInterface } from '../types/userInterface';
 import { ChatModel } from '../types/chatInterface';
 import { ChatEntityService } from '../services/chat/chat-entity.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { PlantCycleService } from '../services/plantCycle/plant-cycle.service';
+import { PlantCycleInterface } from '../types/plantCycleInterface';
 
 @Component({
   selector: 'app-farmers',
@@ -21,7 +23,7 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 })
 export class FarmersComponent implements OnInit, AfterViewInit {
   farms: any;
-  farmName: string = '';
+  farmName: any;
   farmerName: any;
   farmCrops: any;
 
@@ -35,7 +37,9 @@ export class FarmersComponent implements OnInit, AfterViewInit {
 
   chats: ChatModel | any;
   searchTerm = '';
-  uId!: number;
+  uId!: any;
+  plantCycles: PlantCycleInterface[] = [];
+  selectedFcropIndex!: number;
 
   // Reply form
   replyForm = this.fb.group({
@@ -49,7 +53,8 @@ export class FarmersComponent implements OnInit, AfterViewInit {
     private farmsService: FarmsService,
     private farmCropService: FarmCropService,
     private usersService: UsersService,
-    private chatService: ChatEntityService
+    private chatService: ChatEntityService,
+    private cropCycleService: PlantCycleService
   ) {}
 
   ngOnInit() {
@@ -70,8 +75,23 @@ export class FarmersComponent implements OnInit, AfterViewInit {
         console.log('err', error);
       },
     });
-
-    this.getChats();
+  }
+  //// Filter plant Cycle
+  getPlantCycle(id: any) {
+    this.cropCycleService.entities$.subscribe({
+      next: (plantCycle: PlantCycleInterface[]) => {
+        this.plantCycles = plantCycle.filter(
+          (plantCycle: PlantCycleInterface) => plantCycle.farm_crop_id === id
+        );
+      },
+      error: (error: any) => {
+        console.error('Error getting plant cycle', error);
+      },
+    });
+  }
+  getRecentActivities(farmCrop: any, i: number) {
+    this.getPlantCycle(farmCrop.id);
+    this.selectedFcropIndex = i;
   }
 
   //// Get form controls
@@ -83,7 +103,9 @@ export class FarmersComponent implements OnInit, AfterViewInit {
   getChats() {
     this.chatService.entities$.subscribe({
       next: (data: ChatModel[]) => {
-        this.chats = data;
+        this.chats = data.filter((chat: ChatModel) => {
+          return chat.user_id === this.uId;
+        });
       },
       error: (error) => {
         console.log('err', error);
@@ -104,7 +126,7 @@ export class FarmersComponent implements OnInit, AfterViewInit {
     });
   }
 
-  toggleSide(user: any, id: number) {
+  toggleSide(user: any, id: any) {
     if (!this.sideOpen) {
       this.uId = id;
       this.sideOpen = true;
@@ -116,6 +138,18 @@ export class FarmersComponent implements OnInit, AfterViewInit {
     }
 
     this.farmerName = user.first_name + ' ' + user.last_name;
+    this.farmName = undefined;
+    this.farmCropService.entities$.subscribe({
+      next: (farmCrops: FarmCropInterface[]) => {
+        this.farmCrops = farmCrops.filter((farmCrop: FarmCropInterface) => {
+          return farmCrop.farm.user_id === id;
+        });
+      },
+      error: (error) => {
+        console.log('err', error);
+      },
+    });
+    this.getChats();
   }
 
   /////////////////////**** MAP **** /////////////////////
