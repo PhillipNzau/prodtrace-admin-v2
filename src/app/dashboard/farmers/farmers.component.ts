@@ -90,6 +90,7 @@ export class FarmersComponent implements OnInit {
       },
     });
   }
+
   //// Get all farms
   getAllFarms() {
     this.farmsService.entities$.subscribe({
@@ -126,6 +127,7 @@ export class FarmersComponent implements OnInit {
   get cf() {
     return this.replyForm!.controls;
   }
+
   /// Get filtered user
   getFilteredUsers() {
     this.usersService.setFilter(2);
@@ -214,6 +216,7 @@ export class FarmersComponent implements OnInit {
       },
     });
   }
+
   ////////////////////**** End of chat functions ****////////////////
 
   /////////////////////**** MAP **** /////////////////////
@@ -252,6 +255,11 @@ export class FarmersComponent implements OnInit {
   //// Get all markers
   getAllMarkers() {
     this.uId = 'all';
+
+    if (this.uId === 'all') {
+      this.sideOpen = false;
+    }
+
     this.getAllFarms();
     this.populateMap();
   }
@@ -328,5 +336,6 @@ export class FarmersComponent implements OnInit {
       this.markerCluster.addLayer(marker);
     });
   }
+
   /////////////////////**** End of MAP **** /////////////////////
 }
