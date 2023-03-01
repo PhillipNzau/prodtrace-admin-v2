@@ -39,6 +39,13 @@ pipeline {
                         }
                 }
             }
+            post{
+                failure{
+                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "Prodtrace-admin pipeline failed to build and pus image to repo. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
+                }
+            }
         }
 
         stage('Cleaning up') {
@@ -64,6 +71,13 @@ pipeline {
                     }
                 }
             }
+            post{
+                failure{
+                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "Prodtrace-admin pipeline failed to setup the server. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
+                }
+            }
         }
 
         stage('Deploy Project') {
@@ -76,6 +90,18 @@ pipeline {
                             sh "ssh -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/frontend/deployment/current/docker-compose-staging.yml up -d"
                         }
                     }
+                }
+            }
+            post{
+                success{
+                    mail to: "philip.junior@prodtrace.io, victor.kanam@prodtrace.io",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "Prodtrace-admin deployed succesfully"
+                }
+                failure{
+                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "Prodtrace-admin pipeline failed to deploy. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
                 }
             }
         }
