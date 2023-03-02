@@ -10,6 +10,7 @@ pipeline {
         dockerImage = ''
         STAGING_SERVER ='192.168.1.24'
         PROD_SERVER ='45.76.214.70'
+        mailRecepients= 'victor.kanam@prodtrace.io, philip.junior@prodtrace.io'
     }
 
     stages {
@@ -41,9 +42,10 @@ pipeline {
             }
             post{
                 failure{
-                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    emailext to: "${mailRecepients}",
                     subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "Prodtrace-admin pipeline failed to build and pus image to repo. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                    attachLog: true
                 }
             }
         }
@@ -73,9 +75,10 @@ pipeline {
             }
             post{
                 failure{
-                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    emailext to: "${mailRecepients}",
                     subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "Prodtrace-admin pipeline failed to setup the server. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                    attachLog: true
                 }
             }
         }
@@ -94,14 +97,15 @@ pipeline {
             }
             post{
                 success{
-                    mail to: "philip.junior@prodtrace.io, victor.kanam@prodtrace.io",
+                    emailext to: "${mailRecepients}",
                     subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "Prodtrace-admin deployed succesfully"
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
                 failure{
-                    mail to: "philip.junior@prodtrace.io,victor.kanam@prodtrace.io",
+                    emailext to: "${mailRecepients}",
                     subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "Prodtrace-admin pipeline failed to deploy. Use the credentials username: avl password: traincascade url:jenkins.avl.local:8080 to acces logs. Please contact Steve for more assistance."
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                    attachLog: true
                 }
             }
         }
