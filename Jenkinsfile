@@ -40,6 +40,7 @@ pipeline {
                         }
                 }
             }
+
             post{
                 failure{
                     emailext to: "${mailRecepients}",
@@ -73,6 +74,7 @@ pipeline {
                     }
                 }
             }
+
             post{
                 failure{
                     emailext to: "${mailRecepients}",
@@ -83,7 +85,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Project') {
+        stage('Deploy ') {
             steps{
                 sshagent(credentials:['JENKINS']) {
                     script{
@@ -95,6 +97,7 @@ pipeline {
                     }
                 }
             }
+
             post{
                 success{
                     emailext to: "${mailRecepients}",
