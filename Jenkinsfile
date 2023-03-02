@@ -10,7 +10,8 @@ pipeline {
         dockerImage = ''
         STAGING_SERVER ='192.168.1.24'
         PROD_SERVER ='45.76.214.70'
-        mailRecepients= 'victor.kanam@prodtrace.io, philip.junior@prodtrace.io'
+        // mailRecepients= 'victor.kanam@prodtrace.io, philip.junior@prodtrace.io'
+        mailRecepients= 'stevemwalili54@gmail.com'
     }
 
     stages {
@@ -101,8 +102,8 @@ pipeline {
             post{
                 success{
                     emailext to: "${mailRecepients}",
-                    subject: "Deployment",
-                    body: "Prodtrace-admin deployed succesfully"
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
                 failure{
                     emailext to: "${mailRecepients}",
