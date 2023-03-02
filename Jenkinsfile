@@ -101,8 +101,8 @@ pipeline {
             post{
                 success{
                     emailext to: "${mailRecepients}",
-                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                    subject: "Deployment",
+                    body: "Prodtrace-admin deployed succesfully"
                 }
                 failure{
                     emailext to: "${mailRecepients}",
