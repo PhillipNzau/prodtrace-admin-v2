@@ -11,8 +11,17 @@
              class="border-0 bg-paleGreen rounded__edge--right text-darkGreen placeholder-darkGreen" />
     </label>
     <div class="h-[85vh] overflow-hidden overflow-y-scroll">
+
+      <p
+        (click)="getAllMarkers()"
+        [ngClass]="{'bg-[#A8A29E]': uId === 'all'}"
+        class="text-2xl text-center text-black font-bold rounded-2xl w-100 bg-[#e7e4d5] py-4 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
+        All
+      </p>
+
       <div *ngFor="let user of users | search:searchTerm:['first_name', 'last_name']"
            (click)="toggleSide(user, user.id)"
+           [ngClass]="{'bg-[#A8A29E]': uId === user.id}"
            class="my__flex--between rounded-2xl w-100 bg-[#e7e4d5] py-4 px-6 mb-8 cursor-pointer hover:bg-[#A8A29E] transition-all duration-200">
         <img class="" src="./assets/img/farm-icon.svg" alt="Farms svg">
 
@@ -59,8 +68,8 @@
       <h2 class="text-darkGreen text-2xl font-bold mt-9">Crop Name</h2>
       <div class="flex items-center flex-wrap gap-4 w-full mt-5">
         <div class="text-center p-4"
-             [ngClass]="{'bg-[#e7e4d5] rounded-2xl': selectedFcropIndex === i}"
-             *ngFor="let farmCrop of farmCrops; index as i" (click)="getRecentActivities(farmCrop, i)">
+             [ngClass]="{'bg-[#e7e4d5] rounded-2xl': selectedFcropIndex === farmCrop.id}"
+             *ngFor="let farmCrop of farmCrops; index as i" (click)="getRecentActivities(farmCrop, farmCrop.id)">
           <img src="./assets/img/banana.svg" alt="Fruit img">
           <p class="text-darkGreen text-2xl mt-3">{{farmCrop?.crop?.name}}</p>
         </div>
@@ -94,7 +103,7 @@
           </div>
         </label>
       </div>
-<!--      <h2 class="text-darkGreen text-2xl font-bold mt-9">Account Info</h2>-->
+      <!--      <h2 class="text-darkGreen text-2xl font-bold mt-9">Account Info</h2>-->
     </div>
 
   </div>

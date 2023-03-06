@@ -10,6 +10,7 @@ pipeline {
         dockerImage = ''
         STAGING_SERVER ='192.168.1.24'
         PROD_SERVER ='45.76.214.70'
+        mailRecepients= 'victor.kanam@prodtrace.io, philip.junior@prodtrace.io'
     }
 
     stages {
@@ -39,6 +40,14 @@ pipeline {
                         }
                 }
             }
+
+            post{
+                failure{
+                    mail to: "${mailRecepients}",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                }
+            }
         }
 
         stage('Cleaning up') {
@@ -64,9 +73,17 @@ pipeline {
                     }
                 }
             }
+
+            post{
+                failure{
+                    mail to: "${mailRecepients}",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                }
+            }
         }
 
-        stage('Deploy Project') {
+        stage('Deploy ') {
             steps{
                 sshagent(credentials:['JENKINS']) {
                     script{
@@ -76,6 +93,19 @@ pipeline {
                             sh "ssh -o StrictHostKeyChecking=no  $STAGING_SERVER docker-compose -f prodtrace-admin/frontend/deployment/current/docker-compose-staging.yml up -d"
                         }
                     }
+                }
+            }
+
+            post{
+                success{
+                    mail to: "${mailRecepients}",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                }
+                failure{
+                    mail to: "${mailRecepients}",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
                 }
             }
         }
