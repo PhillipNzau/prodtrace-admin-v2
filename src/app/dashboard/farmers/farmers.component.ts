@@ -236,7 +236,7 @@ export class FarmersComponent implements OnInit {
     ).addTo(this.map);
 
     this.icon = L.icon({
-      iconUrl: 'assets/img/marker-icon.png',
+      iconUrl: 'assets/img/map-icon2.png',
       popupAnchor: [13, 0],
     });
 
