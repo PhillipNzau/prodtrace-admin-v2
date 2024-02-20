@@ -52,6 +52,16 @@ export class FarmersComponent implements OnInit {
     is_message_replied: ['', Validators.required],
   });
 
+  chemicals: { tradeName: string, phiDays: number }[] = [
+    { tradeName: 'Dynamec', phiDays: 7 },
+    { tradeName: 'Amazing Top 100 WDG', phiDays: 14 },
+    { tradeName: 'Voliam Targo', phiDays: 10 },
+    { tradeName: 'Mospilan', phiDays: 5 },
+    { tradeName: 'Ortiva 250SC', phiDays: 21 },
+    { tradeName: 'Neemraj/Achook', phiDays: 3 },
+    // Add more trade names and corresponding phiDays
+  ];
+
   constructor(
     private fb: UntypedFormBuilder,
     private farmsService: FarmsService,
