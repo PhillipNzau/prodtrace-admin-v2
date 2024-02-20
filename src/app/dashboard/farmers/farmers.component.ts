@@ -42,12 +42,25 @@ export class FarmersComponent implements OnInit {
   icon: any;
   markerCluster: any;
 
+  // fumigation vars
+  isFumigation:boolean = false;
+
   // Reply form
   replyForm = this.fb.group({
     id: ['', Validators.required],
     reply: ['', Validators.required],
     is_message_replied: ['', Validators.required],
   });
+
+  chemicals: { tradeName: string, phiDays: number }[] = [
+    { tradeName: 'Dynamec', phiDays: 7 },
+    { tradeName: 'Amazing Top 100 WDG', phiDays: 14 },
+    { tradeName: 'Voliam Targo', phiDays: 10 },
+    { tradeName: 'Mospilan', phiDays: 5 },
+    { tradeName: 'Ortiva 250SC', phiDays: 21 },
+    { tradeName: 'Neemraj/Achook', phiDays: 3 },
+    // Add more trade names and corresponding phiDays
+  ];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -63,6 +76,11 @@ export class FarmersComponent implements OnInit {
     this.getAllFarmers();
     this.markerCluster = new MarkerClusterGroup();
     this.loadMap();
+  }
+
+  // Fumigation function
+  toggleFumigation() {
+    this.isFumigation =!this.isFumigation;
   }
 
   //// Get all users
@@ -120,6 +138,7 @@ export class FarmersComponent implements OnInit {
   //// Get recent activities
   getRecentActivities(farmCrop: any, i: number) {
     this.getPlantCycle(farmCrop.id);
+    this.toggleFumigation();
     this.selectedFcropIndex = i;
   }
 
@@ -143,6 +162,7 @@ export class FarmersComponent implements OnInit {
 
   //// Toggle side bar logic
   toggleSide(user: any, id: any) {
+    this.isFumigation = false
     if (!this.sideOpen) {
       this.uId = id;
       this.sideOpen = true;
