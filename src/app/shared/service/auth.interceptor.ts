@@ -32,17 +32,17 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((err) => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            console.log('refeshtok', refresh)
-            //// Run auto login
-            this.authService.refreshToken(refresh).subscribe({
-              next: (data)=> {
-                console.log('Refreshed')},
-              error: (error) => console.log('Error Refreshing')
-            })
-          }
-        }
+        // if (err instanceof HttpErrorResponse) {
+        //   if (err.status === 401) {
+        //     console.log('refeshtok', refresh)
+        //     //// Run auto login
+        //     this.authService.refreshToken(refresh).subscribe({
+        //       next: (data)=> {
+        //         console.log('Refreshed')},
+        //       error: (error) => console.log('Error Refreshing')
+        //     })
+        //   }
+        // }
         return throwError(err)
       })
     );
