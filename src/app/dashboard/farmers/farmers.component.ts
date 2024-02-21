@@ -52,13 +52,13 @@ export class FarmersComponent implements OnInit {
     is_message_replied: ['', Validators.required],
   });
 
-  chemicals: { tradeName: string, phiDays: number }[] = [
-    { tradeName: 'Dynamec', phiDays: 7 },
-    { tradeName: 'Amazing Top 100 WDG', phiDays: 14 },
-    { tradeName: 'Voliam Targo', phiDays: 10 },
-    { tradeName: 'Mospilan', phiDays: 5 },
-    { tradeName: 'Ortiva 250SC', phiDays: 21 },
-    { tradeName: 'Neemraj/Achook', phiDays: 3 },
+  chemicals: { tradeName: string, phiDays: number, startDate: string, endDate: string}[] = [
+    { tradeName: 'Dynamec', phiDays: 7, startDate: '2021-01-01', endDate: '2021-03-01'},
+    { tradeName: 'Amazing Top 100 WDG', phiDays: 14, startDate: '2021-01-01', endDate: '2021-02-01' },
+    { tradeName: 'Voliam Targo', phiDays: 10, startDate: '2021-01-01', endDate: '2021-04-01' },
+    { tradeName: 'Mospilan', phiDays: 5, startDate: '2021-01-01', endDate: '2021-01-11' },
+    { tradeName: 'Ortiva 250SC', phiDays: 21, startDate: '2021-01-01', endDate: '2021-04-01' },
+    { tradeName: 'Neemraj/Achook', phiDays: 3, startDate: '2021-01-01', endDate: '2021-04-01' },
     // Add more trade names and corresponding phiDays
   ];
 
