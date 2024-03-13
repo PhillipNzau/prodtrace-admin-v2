@@ -73,6 +73,24 @@ body {
   }
 }
 
+// Scroll
+.prodtrace-scroll {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f3f3f3;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #004637;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #004637;
+  }
+}
+
 .basic__input {
   width: 100%;
   height: 5rem;

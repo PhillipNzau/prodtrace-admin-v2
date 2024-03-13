@@ -19,6 +19,8 @@ module.exports = {
         darkGray: '#8a8a93',
         lightGray: '#f3f3f3',
         bgPrimary: '#fffbeb',
+        offWhite: '#F8F4ED',
+        paleGray: '#E9EFF6'
       }
     },
   },
