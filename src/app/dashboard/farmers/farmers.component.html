@@ -83,7 +83,7 @@
               <th class="border border-darkGreen px-4 py-4">End Date</th>
             </tr>
           </thead>
-          <tbody class="">
+          <tbody *ngIf="!loadingPPUDetails && chemicals.length" class="">
             <tr
               *ngFor="let chemical of chemicals"
               class="py-6 text-lg text-darkGreen odd:bg-white even:bg-offWhite hover:cursor-pointer hover:bg-slate-50"
@@ -101,6 +101,27 @@
                 {{ chemical.endDate }}
               </td>
             </tr>
+
+          </tbody>
+
+          <!--          loading indicator -->
+          <tbody *ngIf="loadingPPUDetails">
+          <tr *ngFor="let chemical of chemicals"
+              class="py-6 text-lg text-darkGreen odd:bg-white even:bg-offWhite hover:cursor-pointer hover:bg-slate-50"
+          >
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>

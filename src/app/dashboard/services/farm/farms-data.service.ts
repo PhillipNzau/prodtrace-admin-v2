@@ -16,6 +16,7 @@ export class FarmsDataService extends DefaultDataService<FarmInterface> {
   createFarmUrl = environment.createFarm
   getFarmUrl = environment.getFarm;
   updateFarmUrl = environment.updateFarm;
+  ppuDetailURL = environment.ppuDetailURL
 
   constructor(http: HttpClient, httpUrlGenerator:HttpUrlGenerator) {
     super('Farms', http, httpUrlGenerator);
@@ -44,6 +45,10 @@ export class FarmsDataService extends DefaultDataService<FarmInterface> {
         return farm
       })
     )
+  }
+
+  farmPPUDetails(payload: { ppu_id: string }): Observable<any> {
+    return this.http.post(this.ppuDetailURL, payload)
   }
 
 }

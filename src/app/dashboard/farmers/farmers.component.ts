@@ -15,6 +15,7 @@ import { ChatEntityService } from '../services/chat/chat-entity.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { PlantCycleService } from '../services/plantCycle/plant-cycle.service';
 import { PlantCycleInterface } from '../types/plantCycleInterface';
+import {FarmsDataService} from "../services/farm/farms-data.service";
 
 @Component({
   selector: 'app-farmers',
@@ -43,6 +44,8 @@ export class FarmersComponent implements OnInit {
   markerCluster: any;
 
   // fumigation vars
+  ppuID: string = '';
+  loadingPPUDetails: boolean = true;
   isFumigation:boolean = false;
 
   // Reply form
@@ -65,6 +68,7 @@ export class FarmersComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private farmsService: FarmsService,
+    private farmDataSrv: FarmsDataService,
     private farmCropService: FarmCropService,
     private usersService: UsersService,
     private chatService: ChatEntityService,
@@ -80,6 +84,10 @@ export class FarmersComponent implements OnInit {
 
   // Fumigation function
   toggleFumigation() {
+    if (this.ppuID) {
+      this.isFumigation = true
+      return
+    }
     this.isFumigation =!this.isFumigation;
   }
 
@@ -137,7 +145,9 @@ export class FarmersComponent implements OnInit {
 
   //// Get recent activities
   getRecentActivities(farmCrop: any, i: number) {
+    this.ppuID = farmCrop.id;
     this.getPlantCycle(farmCrop.id);
+    this.getPPUDetails(farmCrop.id)
     this.toggleFumigation();
     this.selectedFcropIndex = i;
   }
@@ -158,6 +168,25 @@ export class FarmersComponent implements OnInit {
         console.log('fil err', error);
       },
     });
+  }
+
+  getPPUDetails(farmId: any): any {
+    this.loadingPPUDetails = true;
+
+    const payload = {
+      ppu_id: farmId
+    }
+    console.log('Farm id ==>>', payload)
+    this.farmDataSrv.farmPPUDetails(payload).subscribe({
+      next: (resp) => {
+        this.loadingPPUDetails = false
+        console.log('Resp ==>>', resp)
+      },
+      error: (err) => {
+        this.loadingPPUDetails = false
+        console.log('Failed ==>>', err)
+      }
+    })
   }
 
   //// Toggle side bar logic
