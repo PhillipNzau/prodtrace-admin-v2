@@ -12,6 +12,7 @@ const plantCycleUrl = url + 'plant-cycle/';
 const cropBaseUrl = farmBaseUrl + 'crop/';
 const farmCropBaseUrl = farmBaseUrl + 'farm-crop/';
 const chatBaseUrl = url + 'chat/';
+const ppuBaseUrl = url + 'ppu/';
 
 const geoCoderUrl =
   'https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=';
@@ -68,6 +69,9 @@ export const environment = {
   updateChat: chatBaseUrl,
   unRepliedChats: chatBaseUrl + 'un-replied/',
   unReadResponse: chatBaseUrl + 'unread-responce/',
+
+  // PPU URLS
+  ppuDetailURL: ppuBaseUrl + 'get_farm_ppu_data/',
 
   // Get location
   userLocation: geoCoderUrl,

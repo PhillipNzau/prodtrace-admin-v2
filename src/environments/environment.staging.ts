@@ -8,6 +8,7 @@ const userBaseUrl = url + 'user/';
 const farmBaseUrl = url + 'farm/';
 const plantCycleUrl = url + 'plant-cycle/';
 const chatBaseUrl = url + 'chat/';
+const ppuBaseUrl = url + 'ppu/';
 
 const cropBaseUrl = farmBaseUrl + 'crop/';
 const farmCropBaseUrl = farmBaseUrl + 'farm-crop/';
@@ -67,6 +68,9 @@ export const environment = {
   updateChat: chatBaseUrl,
   unRepliedChats: chatBaseUrl + 'un-replied/',
   unReadResponse: chatBaseUrl + 'unread-responce/',
+
+  // PPU URLS
+  ppuDetailURL: ppuBaseUrl + 'get_farm_ppu_data/',
 
   // Get location
   userLocation: geoCoderUrl,

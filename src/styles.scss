@@ -73,6 +73,24 @@ body {
   }
 }
 
+// Scroll
+.prodtrace-scroll {
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f3f3f3;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #004637;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #004637;
+  }
+}
+
 .basic__input {
   width: 100%;
   height: 5rem;
@@ -135,4 +153,19 @@ body {
 
 .read {
   background-color: gray;
+}
+
+
+// Loading indicator
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
 }

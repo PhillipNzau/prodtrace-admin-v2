@@ -15,7 +15,7 @@
         class="rounded__edge--right border-0 bg-paleGreen text-darkGreen placeholder-darkGreen"
       />
     </label>
-    <div class="h-[85vh] overflow-hidden overflow-y-scroll">
+    <div class="h-[85vh] overflow-x-hidden overflow-y-scroll prodtrace-scroll">
       <p
         (click)="getAllMarkers()"
         [ngClass]="{ 'bg-[#A8A29E]': uId === 'all' }"
@@ -54,6 +54,7 @@
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -73,42 +74,71 @@
       <h1 class="text-2xl font-bold text-darkGreen">PPPU Details</h1>
 
       <div class="overflow-x-auto">
-        <table class="w-full table-auto border border-darkGreen">
+        <table class="w-full table-auto border border-paleGray">
           <thead>
-            <tr class="bg-green-200 text-lg text-darkGreen">
+            <tr class="bg-offWhite text-lg text-darkGreen">
               <th class="border border-darkGreen px-4 py-4">Trade Name</th>
               <th class="border border-darkGreen px-4 py-4">PHI Days</th>
               <th class="border border-darkGreen px-4 py-4">Start Date</th>
               <th class="border border-darkGreen px-4 py-4">End Date</th>
             </tr>
           </thead>
-          <tbody class="">
+          <tbody *ngIf="!loadingPPUDetails && ppuData.length" class="">
             <tr
-              *ngFor="let chemical of chemicals"
-              class="py-6 text-lg text-darkGreen odd:bg-green-400 even:bg-red-400 hover:cursor-pointer hover:bg-slate-50"
+              *ngFor="let chemical of ppuData"
+              class="py-6 text-lg text-darkGreen odd:bg-white even:bg-offWhite hover:cursor-pointer hover:bg-slate-50"
             >
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.tradeName }}
+                {{ chemical.ppu_data.trade_name }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.phiDays }}
+                {{ chemical.ppu_data.phi_days }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.startDate }}
+                {{ chemical.date_applied }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.endDate }}
+                {{ chemical.end_date }}
               </td>
             </tr>
+
           </tbody>
+
+          <!--          loading indicator -->
+          <tbody *ngIf="loadingPPUDetails">
+          <tr *ngFor="let chemical of chemicals"
+              class="py-6 text-lg text-darkGreen odd:bg-white even:bg-offWhite hover:cursor-pointer hover:bg-slate-50"
+          >
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+            <td>
+              <div class="skeleton border border-darkGreen h-[38px]"></div>
+            </td>
+          </tr>
+          </tbody>
+
+          <div *ngIf="!loadingPPUDetails && !ppuData.length" class="py-5 px-3">
+            <p class="text-black">No data added yet!</p>
+          </div>
+
         </table>
       </div>
 
       <div class="space-y-4 text-darkGreen">
         <!-- <p class="text-2xl font-bold text-darkGreen">Crop Details</p> -->
-        <p class="text-2xl font-bold text-darkGreen">
-          Crop Name: <span class="font-normal">Basil</span>
-        </p>
+       <div class="flex flex-col">
+         <p class="text-2xl font-bold text-darkGreen my-1">
+           Crop Name:
+         </p>
+           <span class="text-2xl text-darkGreen  font-normal">Basil</span>
+       </div>
 
         <p class="text-2xl font-bold text-darkGreen">Description</p>
         <p>
@@ -163,7 +193,7 @@
       <h2 class="mt-9 text-2xl font-bold text-darkGreen">Green Houses</h2>
       <div class="mt-5 flex w-full flex-wrap items-center gap-4">
         <div
-          class="p-4 text-center"
+          class="p-4 text-center cursor-pointer"
           [ngClass]="{
             'rounded-2xl bg-[#e7e4d5]': selectedFcropIndex === farmCrop.id
           }"
