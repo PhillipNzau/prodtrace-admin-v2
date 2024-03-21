@@ -47,7 +47,7 @@ export class FarmsDataService extends DefaultDataService<FarmInterface> {
     )
   }
 
-  farmPPUDetails(payload: { ppu_id: string }): Observable<any> {
+  farmPPUDetails(payload: { farm_id: string }): Observable<any> {
     return this.http.post(this.ppuDetailURL, payload)
   }
 

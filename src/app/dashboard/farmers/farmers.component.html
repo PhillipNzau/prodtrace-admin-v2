@@ -83,22 +83,22 @@
               <th class="border border-darkGreen px-4 py-4">End Date</th>
             </tr>
           </thead>
-          <tbody *ngIf="!loadingPPUDetails && chemicals.length" class="">
+          <tbody *ngIf="!loadingPPUDetails && ppuData.length" class="">
             <tr
-              *ngFor="let chemical of chemicals"
+              *ngFor="let chemical of ppuData"
               class="py-6 text-lg text-darkGreen odd:bg-white even:bg-offWhite hover:cursor-pointer hover:bg-slate-50"
             >
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.tradeName }}
+                {{ chemical.ppu_data.trade_name }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.phiDays }}
+                {{ chemical.ppu_data.phi_days }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.startDate }}
+                {{ chemical.date_applied }}
               </td>
               <td class="border border-darkGreen px-4 py-4">
-                {{ chemical.endDate }}
+                {{ chemical.end_date }}
               </td>
             </tr>
 
@@ -123,6 +123,11 @@
             </td>
           </tr>
           </tbody>
+
+          <div *ngIf="!loadingPPUDetails && !ppuData.length" class="py-5 px-3">
+            <p class="text-black">No data added yet!</p>
+          </div>
+
         </table>
       </div>
 

@@ -16,6 +16,7 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { PlantCycleService } from '../services/plantCycle/plant-cycle.service';
 import { PlantCycleInterface } from '../types/plantCycleInterface';
 import {FarmsDataService} from "../services/farm/farms-data.service";
+import {PpuInterface} from "../types/ppuInterface";
 
 @Component({
   selector: 'app-farmers',
@@ -64,6 +65,8 @@ export class FarmersComponent implements OnInit {
     { tradeName: 'Neemraj/Achook', phiDays: 3, startDate: '2021-01-01', endDate: '2021-04-01' },
     // Add more trade names and corresponding phiDays
   ];
+
+  ppuData: PpuInterface[] = []
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -147,7 +150,7 @@ export class FarmersComponent implements OnInit {
   getRecentActivities(farmCrop: any, i: number) {
     this.ppuID = farmCrop.id;
     this.getPlantCycle(farmCrop.id);
-    this.getPPUDetails(farmCrop.id)
+    this.getPPUDetails(farmCrop.farm_id)
     this.toggleFumigation();
     this.selectedFcropIndex = i;
   }
@@ -174,13 +177,14 @@ export class FarmersComponent implements OnInit {
     this.loadingPPUDetails = true;
 
     const payload = {
-      ppu_id: farmId
+      farm_id: farmId
     }
     console.log('Farm id ==>>', payload)
     this.farmDataSrv.farmPPUDetails(payload).subscribe({
       next: (resp) => {
         this.loadingPPUDetails = false
         console.log('Resp ==>>', resp)
+        this.ppuData = resp.data
       },
       error: (err) => {
         this.loadingPPUDetails = false
