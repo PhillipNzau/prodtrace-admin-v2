@@ -43,6 +43,8 @@ export class FarmersComponent implements OnInit {
   selectedFcropIndex: number | undefined;
   icon: any;
   markerCluster: any;
+  loadingPPUDetails: any;
+  ppuID: any;
 
   // fumigation vars
   isFumigation: boolean = false;
