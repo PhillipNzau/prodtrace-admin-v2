@@ -15,8 +15,8 @@ import { ChatEntityService } from '../services/chat/chat-entity.service';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { PlantCycleService } from '../services/plantCycle/plant-cycle.service';
 import { PlantCycleInterface } from '../types/plantCycleInterface';
-import {FarmsDataService} from "../services/farm/farms-data.service";
-import {PpuInterface} from "../types/ppuInterface";
+import { FarmsDataService } from '../services/farm/farms-data.service';
+import { PpuInterface } from '../types/ppuInterface';
 
 @Component({
   selector: 'app-farmers',
@@ -45,9 +45,7 @@ export class FarmersComponent implements OnInit {
   markerCluster: any;
 
   // fumigation vars
-  ppuID: string = '';
-  loadingPPUDetails: boolean = true;
-  isFumigation:boolean = false;
+  isFumigation: boolean = false;
 
   // Reply form
   replyForm = this.fb.group({
@@ -56,17 +54,52 @@ export class FarmersComponent implements OnInit {
     is_message_replied: ['', Validators.required],
   });
 
-  chemicals: { tradeName: string, phiDays: number, startDate: string, endDate: string}[] = [
-    { tradeName: 'Dynamec', phiDays: 7, startDate: '2021-01-01', endDate: '2021-03-01'},
-    { tradeName: 'Amazing Top 100 WDG', phiDays: 14, startDate: '2021-01-01', endDate: '2021-02-01' },
-    { tradeName: 'Voliam Targo', phiDays: 10, startDate: '2021-01-01', endDate: '2021-04-01' },
-    { tradeName: 'Mospilan', phiDays: 5, startDate: '2021-01-01', endDate: '2021-01-11' },
-    { tradeName: 'Ortiva 250SC', phiDays: 21, startDate: '2021-01-01', endDate: '2021-04-01' },
-    { tradeName: 'Neemraj/Achook', phiDays: 3, startDate: '2021-01-01', endDate: '2021-04-01' },
+  chemicals: {
+    tradeName: string;
+    phiDays: number;
+    startDate: string;
+    endDate: string;
+  }[] = [
+    {
+      tradeName: 'Dynamec',
+      phiDays: 7,
+      startDate: '2021-01-01',
+      endDate: '2021-03-01',
+    },
+    {
+      tradeName: 'Amazing Top 100 WDG',
+      phiDays: 14,
+      startDate: '2021-01-01',
+      endDate: '2021-02-01',
+    },
+    {
+      tradeName: 'Voliam Targo',
+      phiDays: 10,
+      startDate: '2021-01-01',
+      endDate: '2021-04-01',
+    },
+    {
+      tradeName: 'Mospilan',
+      phiDays: 5,
+      startDate: '2021-01-01',
+      endDate: '2021-01-11',
+    },
+    {
+      tradeName: 'Ortiva 250SC',
+      phiDays: 21,
+      startDate: '2021-01-01',
+      endDate: '2021-04-01',
+    },
+    {
+      tradeName: 'Neemraj/Achook',
+      phiDays: 3,
+      startDate: '2021-01-01',
+      endDate: '2021-04-01',
+    },
     // Add more trade names and corresponding phiDays
   ];
 
-  ppuData: PpuInterface[] = []
+  ppuData: PpuInterface[] = [];
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -87,18 +120,17 @@ export class FarmersComponent implements OnInit {
 
   // Fumigation function
   toggleFumigation() {
-    if (this.ppuID) {
-      this.isFumigation = true
-      return
-    }
-    this.isFumigation =!this.isFumigation;
+    this.isFumigation = !this.isFumigation;
   }
 
   //// Get all users
   getAllFarmers() {
     this.usersService.entities$.subscribe({
       next: (data: any) => {
-        this.getFilteredUsers();
+        // console.log('farmers', data);
+        this.users = data;
+
+        // this.getFilteredUsers();
       },
       error: (error) => {
         console.log('err', error);
@@ -150,7 +182,7 @@ export class FarmersComponent implements OnInit {
   getRecentActivities(farmCrop: any, i: number) {
     this.ppuID = farmCrop.id;
     this.getPlantCycle(farmCrop.id);
-    this.getPPUDetails(farmCrop.farm_id)
+    this.getPPUDetails(farmCrop.farm_id);
     this.toggleFumigation();
     this.selectedFcropIndex = i;
   }
@@ -162,9 +194,11 @@ export class FarmersComponent implements OnInit {
 
   /// Get filtered user
   getFilteredUsers() {
-    this.usersService.setFilter(2);
+    this.usersService.setFilter(1);
     this.usersService.filteredEntities$.subscribe({
       next: (useR: any) => {
+        // console.log('well', useR);
+
         this.users = useR;
       },
       error: (error) => {
@@ -177,25 +211,25 @@ export class FarmersComponent implements OnInit {
     this.loadingPPUDetails = true;
 
     const payload = {
-      farm_id: farmId
-    }
-    console.log('Farm id ==>>', payload)
+      farm_id: farmId,
+    };
+    console.log('Farm id ==>>', payload);
     this.farmDataSrv.farmPPUDetails(payload).subscribe({
       next: (resp) => {
-        this.loadingPPUDetails = false
-        console.log('Resp ==>>', resp)
-        this.ppuData = resp.data
+        this.loadingPPUDetails = false;
+        console.log('Resp ==>>', resp);
+        this.ppuData = resp.data;
       },
       error: (err) => {
-        this.loadingPPUDetails = false
-        console.log('Failed ==>>', err)
-      }
-    })
+        this.loadingPPUDetails = false;
+        console.log('Failed ==>>', err);
+      },
+    });
   }
 
   //// Toggle side bar logic
   toggleSide(user: any, id: any) {
-    this.isFumigation = false
+    this.isFumigation = false;
     if (!this.sideOpen) {
       this.uId = id;
       this.sideOpen = true;
